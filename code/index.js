@@ -1,5 +1,5 @@
-const person_routes = require('./person_routes');
+const code_routes = require('./code_routes');
 
 module.exports = function(app, db) {
-    person_routes(app, db);
+    code_routes(app, db);
 };
