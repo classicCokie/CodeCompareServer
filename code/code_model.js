@@ -2,13 +2,13 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-var PersonSchema   = new Schema({
-    id : Number,
-   	name : String,
-    description: String,
-    street : String,
-    city : String,
-    profile_image : String
+var CodeSchema   = new Schema({
+	codeLeft : String,
+    codeRight : String,
+    codeLeftVotes: Number,
+    codeRightVotes: Number,
+    language : String,
+    description : String
 });
 
-module.exports = mongoose.model('persons', PersonSchema);
+module.exports = mongoose.model('codes', CodeSchema);
