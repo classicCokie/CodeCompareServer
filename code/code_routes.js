@@ -27,10 +27,12 @@ module.exports = function(app, db) {
     app.post('/addCode', (req, res) => {
         var code = new Codes();
 
+        code.title = req.body.title;
         code.codeLeft = req.body.codeLeft;
         code.codeRight = req.body.codeRight;
         code.language = req.body.language;
         code.description = req.body.description;
+        code.profile_image =  "http://via.placeholder.com/100x100";
 
         code.save(function(err, result) {
             if (err)
