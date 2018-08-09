@@ -23,6 +23,16 @@ module.exports = function(app, db) {
         });
     });
 
+    app.put('/vote', (req, res) => {
+        Codes.update(
+            {_id: req.body._id},
+            {$inc: {req.body.voted : 1}},
+            function(err, code) {
+                if (err)
+                    res.send(err);
+                res.json(code);
+        });
+    });
 
     app.post('/addCode', (req, res) => {
         var code = new Codes();
@@ -30,6 +40,8 @@ module.exports = function(app, db) {
         code.title = req.body.title;
         code.codeLeft = req.body.codeLeft;
         code.codeRight = req.body.codeRight;
+        code.codeLeftVotes = 0;
+        code.codeRightVotes = 0;
         code.language = req.body.language;
         code.description = req.body.description;
         code.profile_image =  "http://via.placeholder.com/100x100";
@@ -37,10 +49,10 @@ module.exports = function(app, db) {
         code.save(function(err, result) {
             if (err)
                 res.send(err);
-            console.log(result);
+            res.json(code);
         });
 
-        res.json(code);
+        
     });
 
 };
