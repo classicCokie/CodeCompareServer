@@ -14,7 +14,7 @@ module.exports = function(app, db) {
         next();
     });
 
-    //Get All Conditions
+    // Get All the Code
     app.get('/allCode', (req, res) => {
         Codes.find(function(err, code) {
             if (err)
@@ -23,15 +23,31 @@ module.exports = function(app, db) {
         });
     });
 
-    app.put('/vote', (req, res) => {
+
+    app.post('/vote/left', (req, res) => {
+
         Codes.update(
-            {_id: req.body._id},
-            {$inc: {req.body.voted : 1}},
-            function(err, code) {
+            {_id: req.body.id},
+            { $inc: { codeLeftVotes: 1}},
+            (err, code) => {
                 if (err)
                     res.send(err);
                 res.json(code);
         });
+
+    });
+
+    app.post('/vote/right', (req, res) => {
+
+        Codes.update(
+            {_id: req.body.id},
+            { $inc: { codeRightVotes: 1}},
+            (err, code) => {
+                if (err)
+                    res.send(err);
+                res.json(code);
+        });
+
     });
 
     app.post('/addCode', (req, res) => {
@@ -46,13 +62,18 @@ module.exports = function(app, db) {
         code.description = req.body.description;
         code.profile_image =  "http://via.placeholder.com/100x100";
 
-        code.save(function(err, result) {
+        code.save((err, result) => {
             if (err)
                 res.send(err);
             res.json(code);
-        });
-
-        
+        }); 
     });
 
+    app.delete('/codes/all', (req, res) => {
+        Codes.remove({}, (err, user) => {
+            if (err)
+                throw err;
+        });
+        res.send( { message : 'Deleted All'});
+    });
 };
