@@ -23,7 +23,6 @@ module.exports = function(app, db) {
         });
     });
 
-
     app.post('/vote/left', (req, res) => {
 
         Codes.update(
