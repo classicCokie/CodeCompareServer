@@ -22,6 +22,14 @@ module.exports = function(app, db) {
             res.json(code);
         });
     });
+    
+    app.get('/code/:id', (req, res) => {
+        Codes.findById(req.params.id, function(err, code) {
+            if (err)
+                res.send(err);
+            res.json(code);
+        });
+    });
 
     app.post('/vote/left', (req, res) => {
 
