@@ -45,7 +45,6 @@ module.exports = function(app, db) {
     });
 
     app.post('/vote/right', (req, res) => {
-
         Codes.update(
             {_id: req.body.id},
             { $inc: { codeRightVotes: 1}},
