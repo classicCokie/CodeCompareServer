@@ -59,7 +59,6 @@ module.exports = function(app, db) {
 
     app.post('/addCode', (req, res) => {
         var code = new Codes();
-
         code.title = req.body.title;
         code.codeLeft = req.body.codeLeft;
         code.codeRight = req.body.codeRight;
