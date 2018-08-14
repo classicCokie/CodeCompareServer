@@ -57,13 +57,13 @@ module.exports = function(app, db) {
 
     app.post('/addCode', (req, res) => {
         var code = new Codes();
-        code.title = req.body.title;
-        code.codeLeft = req.body.codeLeft;
-        code.codeRight = req.body.codeRight;
+        code.title = req.body.title.slice(0,20);
+        code.codeLeft = req.body.codeLeft.slice(0,1000);
+        code.codeRight = req.body.codeRight.slice(0,1000);
         code.codeLeftVotes = 0;
         code.codeRightVotes = 0;
-        code.language = req.body.language;
-        code.description = req.body.description;
+        code.language = req.body.language.slice(0,30);
+        code.description = req.body.description.slice(0,1000);
         code.profile_image =  "http://via.placeholder.com/100x100";
 
         code.save((err, result) => {
