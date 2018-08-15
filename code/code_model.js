@@ -10,7 +10,7 @@ var CodeSchema   = new Schema({
     codeRightVotes: Number,
     language : String,
     description : String,
-    profile_image: String
+    shortDescription: String
 });
 
 module.exports = mongoose.model('codes', CodeSchema);

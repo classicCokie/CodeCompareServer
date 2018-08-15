@@ -2,7 +2,9 @@
 module.exports = function(app, db) {
 
     let bodyParser = require('body-parser');
+    // let authService = require('./auth_service');
     let Codes = require('./code_model');
+
 
     //define middleware
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +34,11 @@ module.exports = function(app, db) {
     });
 
     app.post('/vote/left', (req, res) => {
+        
+        // if(authService(req.body.userIp, req.body.id)) {
+        //     res.send( { message : 'User Already Voted for this'});
+        //     return;
+        // }
 
         Codes.update(
             {_id: req.body.id},
@@ -63,8 +70,8 @@ module.exports = function(app, db) {
         code.codeLeftVotes = 0;
         code.codeRightVotes = 0;
         code.language = req.body.language.slice(0,30);
+        code.shortDescription = req.body.shortDescription.slice(0,1000);
         code.description = req.body.description.slice(0,1000);
-        code.profile_image =  "http://via.placeholder.com/100x100";
 
         code.save((err, result) => {
             if (err)
